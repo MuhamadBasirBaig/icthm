@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ICTHM – Islamabad College of Tourism & Hotel Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --deep-blue: #0A3D62;
+    --royal-blue: #1E5AA8;
+    --sky-blue: #4DA8DA;
+    --gold: #D4AF37;
+    --gold-light: #e8c84a;
+    --white: #FFFFFF;
+    --light-grey: #F5F7FA;
+    --dark-grey: #333333;
+    --text-muted: #6b7280;
+    --border: #e2e8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark-grey);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+  /* ──────────────────────────── NAVBAR (only top bar; not footer nav.footer-links) ──────────────────────────── */
+  body > nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(10, 61, 98, 0.97);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px 24px;
+    padding: 0 5%;
+    min-height: 72px;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+  }
+  nav.footer-links {
+    position: static;
+    z-index: auto;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    min-height: unset;
+    padding: 0;
+    gap: 24px;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px; text-decoration: none;
+    flex: 0 0 auto;
+  }
+  .nav-logo img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); }
+  .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-logo-text span:first-child {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.2rem; color: var(--white); letter-spacing: 0.5px;
+  }
+  .nav-logo-text span:last-child { font-size: 0.68rem; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.4px;
+    transition: color 0.2s;
+    position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.25s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .btn-apply {
+    background: var(--gold); color: var(--deep-blue);
+    padding: 10px 24px; border-radius: 6px;
+    font-weight: 700; font-size: 0.88rem; letter-spacing: 0.5px;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .btn-apply:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ──────────────────────────── HERO ──────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(135deg, rgba(10,61,98,0.88) 0%, rgba(30,90,168,0.72) 60%, rgba(10,61,98,0.55) 100%),
+      url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 80px;
+    background: var(--white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-content { max-width: 640px; animation: fadeUp 0.9s ease both; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.5);
+    color: var(--gold); padding: 6px 16px; border-radius: 50px;
+    font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px; font-weight: 600;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: var(--white); font-weight: 900; line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .hero h1 span { color: var(--gold); }
+
+  .hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.82);
+    line-height: 1.75; margin-bottom: 36px; font-weight: 300;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--gold); color: var(--deep-blue);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.25s;
+    border: 2px solid var(--gold);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.35); }
+
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.25s;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 52px; margin-bottom: 30px; flex-wrap: wrap;
+  }
+  .stat { color: var(--white); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ──────────────────────────── SECTION HELPERS ──────────────────────────── */
+  section { padding: 90px 5%; }
+  .section-label {
+    text-align: center; text-transform: uppercase;
+    letter-spacing: 3px; font-size: 0.75rem; font-weight: 600;
+    color: var(--royal-blue); margin-bottom: 10px;
+  }
+  .section-title {
+    text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: var(--deep-blue); margin-bottom: 14px;
+  }
+  .section-line {
+    width: 56px; height: 3px;
+    background: linear-gradient(90deg, var(--royal-blue), var(--gold));
+    margin: 0 auto 52px; border-radius: 4px;
+  }
+  .section-subtitle {
+    text-align: center; color: var(--text-muted);
+    font-size: 1rem; max-width: 560px; margin: -30px auto 52px;
+    line-height: 1.7;
+  }
+
+  /* ──────────────────────────── WHO WE ARE ──────────────────────────── */
+  .about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
+
+  .about-image-wrap { position: relative; }
+  .about-image-wrap img {
+    width: 100%; border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(10,61,98,0.15);
+  }
+  .about-badge-float {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--gold); color: var(--deep-blue);
+    padding: 20px 24px; border-radius: 12px;
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    text-align: center; box-shadow: 0 8px 24px rgba(212,175,55,0.4);
+  }
+  .about-badge-float .num { font-size: 2rem; display: block; }
+  .about-badge-float .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; }
+
+  .about-text h2 { font-size: 2rem; color: var(--deep-blue); margin-bottom: 16px; }
+  .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; font-size: 0.97rem; }
+
+  .about-highlights { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 18px; border-radius: 10px;
+    background: var(--light-grey); border-left: 3px solid var(--royal-blue);
+  }
+  .highlight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .highlight-item h4 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--deep-blue); margin-bottom: 2px; }
+  .highlight-item p { color: var(--text-muted); font-size: 0.83rem; margin: 0; line-height: 1.5; }
+
+  /* ──────────────────────────── PROGRAMS ──────────────────────────── */
+  .programs { background: var(--light-grey); }
+  .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+
+  .program-card {
+    background: var(--white); border-radius: 16px;
+    overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(10,61,98,0.07);
+  }
+  .program-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(10,61,98,0.14); }
+
+  .program-card-img {
+    height: 200px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--deep-blue), var(--royal-blue));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .program-card-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+  .program-card-img .program-icon {
+    position: absolute; bottom: 16px; right: 16px;
+    background: var(--gold); color: var(--deep-blue);
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700;
+  }
+
+  .program-card-body { padding: 24px; }
+  .program-card-body h3 { font-size: 1.15rem; color: var(--deep-blue); margin-bottom: 8px; }
+  .program-card-body p { color: var(--text-muted); font-size: 0.87rem; line-height: 1.65; margin-bottom: 16px; }
+  .program-tag {
+    display: inline-block; background: rgba(30,90,168,0.08);
+    color: var(--royal-blue); padding: 4px 12px; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+  }
+
+  /* ──────────────────────────── FACILITIES ──────────────────────────── */
+  .facilities { background: var(--white); }
+  .facilities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+
+  .facility-card {
+    background: var(--white); border-radius: 14px;
+    overflow: hidden; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(10,61,98,0.07);
+    border: 2px solid transparent;
+  }
+  .facility-card:hover {
+    border-color: var(--royal-blue);
+    box-shadow: 0 12px 36px rgba(10,61,98,0.13);
+    transform: translateY(-5px);
+  }
+  .facility-img {
+    width: 100%; height: 160px; object-fit: cover; display: block;
+    transition: transform 0.4s;
+  }
+  .facility-card:hover .facility-img { transform: scale(1.05); }
+  .facility-img-wrap { overflow: hidden; position: relative; }
+  .facility-img-label {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--deep-blue); color: var(--white);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 50px;
+  }
+  .facility-body { padding: 20px; }
+  .facility-card h3 { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--deep-blue); margin-bottom: 6px; }
+  .facility-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ──────────────────────────── WHY CHOOSE US ──────────────────────────── */
+  .why { background: linear-gradient(135deg, var(--deep-blue) 0%, #0d4f82 100%); }
+  .why .section-label { color: var(--gold); }
+  .why .section-title { color: var(--white); }
+  .why .section-line { background: linear-gradient(90deg, var(--gold), var(--sky-blue)); }
+
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .why-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 32px 28px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .why-card:hover { background: rgba(255,255,255,0.11); transform: translateY(-4px); }
+  .why-num {
+    font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900;
+    color: var(--white); line-height: 1; margin-bottom: 12px;
+  }
+  .why-card h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+  .why-card p { font-size: 0.87rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+  /* ──────────────────────────── TESTIMONIALS ──────────────────────────── */
+  .testimonials { background: var(--light-grey); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+
+  .testimonial-card {
+    background: var(--white); border-radius: 16px; padding: 32px 28px;
+    box-shadow: 0 4px 20px rgba(10,61,98,0.06);
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--gold);
+    line-height: 1; margin-bottom: 8px; opacity: 0.4;
+  }
+  .testimonial-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 24px; font-style: italic; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--royal-blue), var(--sky-blue));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 1rem;
+  }
+  .author-info h4 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--deep-blue); }
+  .author-info span { font-size: 0.78rem; color: var(--text-muted); }
+  .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 14px; }
+
+  /* ──────────────────────────── CTA BANNER ──────────────────────────── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8962e 100%);
+    padding: 72px 5%; text-align: center;
+  }
+  .cta-banner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--deep-blue); margin-bottom: 14px; }
+  .cta-banner p { color: rgba(10,61,98,0.8); font-size: 1rem; margin-bottom: 32px; }
+  .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--deep-blue); color: var(--white);
+    padding: 14px 36px; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem; text-decoration: none;
+    transition: all 0.25s; border: 2px solid var(--deep-blue);
+  }
+  .btn-dark:hover { background: #072e4a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,61,98,0.3); }
+  .btn-white-outline {
+    background: transparent; color: var(--deep-blue);
+    padding: 14px 36px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+    transition: all 0.25s; border: 2px solid var(--deep-blue);
+  }
+  .btn-white-outline:hover { background: rgba(10,61,98,0.08); }
+
+  /* ──────────────────────────── CONTACT / FOOTER ──────────────────────────── */
+  .contact { background: var(--deep-blue); padding: 72px 5%; }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
+
+  .contact-info h2 { font-size: 1.9rem; color: var(--white); margin-bottom: 14px; }
+  .contact-info p { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 0.95rem; margin-bottom: 28px; }
+  .contact-items { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item { display: flex; align-items: center; gap: 14px; color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+  .contact-item-icon {
+    width: 40px; height: 40px; background: rgba(212,175,55,0.15);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    color: var(--white);
+  }
+  .contact-item-icon svg { width: 20px; height: 20px; display: block; }
+
+  .contact-social {
+    margin-top: 28px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  }
+  .contact-social-label {
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px;
+    color: rgba(255,255,255,0.55);
+  }
+  .contact-social-icons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .contact-social-icons a {
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.22); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .contact-social-icons a:hover {
+    background: rgba(255,255,255,0.1); border-color: var(--gold); color: var(--gold); transform: translateY(-2px);
+  }
+  .contact-social-icons svg { width: 16px; height: 16px; display: block; }
+
+  .contact-map {
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3); height: 280px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  footer {
+    background: #061f33; padding: 32px 5% 28px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 24px 32px;
+  }
+  footer p { color: rgba(255,255,255,0.4); font-size: 0.82rem; margin: 0; flex: 1 1 200px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: flex-end; flex: 1 1 200px; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ──────────────────────────── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 1200px) {
+    .programs-grid { grid-template-columns: repeat(2, 1fr); }
+    .facilities-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 992px) {
+    body > nav {
+      padding: 10px 5%;
+      min-height: 72px;
+      flex-wrap: wrap;
+      row-gap: 10px;
+    }
+    .nav-links {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      gap: 18px;
+      padding-bottom: 4px;
+    }
+    .btn-apply {
+      order: 2;
+      margin-left: auto;
+    }
+    .hero {
+      min-height: auto;
+      padding: 170px 5% 72px;
+    }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-image-wrap { max-width: 680px; margin: 0 auto; }
+    .contact-inner { grid-template-columns: 1fr; gap: 36px; align-items: start; }
+    .contact-map { max-width: 760px; width: 100%; margin: 0 auto; }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 72px 5%; }
+    .hero {
+      padding: 178px 5% 64px;
+    }
+    .hero-badge {
+      font-size: 0.7rem;
+      letter-spacing: 1.4px;
+      padding: 6px 12px;
+    }
+    .hero p { font-size: 0.96rem; }
+    .hero-stats { gap: 22px; margin-top: 34px; }
+    .stat-num { font-size: 1.6rem; }
+    .programs-grid,
+    .facilities-grid,
+    .why-grid,
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+    }
+    .about-badge-float {
+      right: 12px;
+      bottom: 12px;
+      padding: 14px 16px;
+    }
+    .about-badge-float .num { font-size: 1.5rem; }
+    .about-badge-float .lbl { font-size: 0.65rem; }
+    .footer-inner {
+      justify-content: center;
+      text-align: center;
+    }
+    footer p { flex: 1 1 100%; }
+    .footer-links { justify-content: center; flex: 1 1 100%; }
+  }
+
+  @media (max-width: 560px) {
+    body > nav {
+      row-gap: 8px;
+      padding: 10px 4%;
+    }
+    .nav-logo-text span:last-child { display: none; }
+    .nav-links {
+      gap: 12px;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.2px;
+    }
+    .btn-apply {
+      padding: 8px 14px;
+      font-size: 0.78rem;
+    }
+    .hero {
+      padding: 168px 4% 58px;
+    }
+    .hero-btns,
+    .cta-btns {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btn-primary, .btn-outline, .btn-dark, .btn-white-outline {
+      width: 100%;
+      text-align: center;
+    }
+    .contact-item {
+      align-items: center;
+      font-size: 0.86rem;
+    }
+  }
+
+  /* ──────────────────────────── ANIMATIONS ──────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1E5AA8,#4DA8DA);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;color:white;font-size:1rem;">IC</div>
+    <div class="nav-logo-text">
+      <span>ICTHM</span>
+      <span>Islamabad, Pakistan</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Programs</a></li>
+    <li><a href="#">Admissions</a></li>
+    <li><a href="#">Facilities</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="btn-apply">Apply Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Pakistan's Premier Hospitality Institute</div>
+    <h1>Islamabad College of <span>Tourism & Hotel</span> Management</h1>
+    <p>Shaping the next generation of hospitality and tourism leaders through world-class education, hands-on training, and industry-aligned programs.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Apply Now</a>
+      <a href="#" class="btn-outline">Download Prospectus</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Years of Excellence</span></div>
+      <div class="stat"><span class="stat-num">2,000+</span><span class="stat-label">Alumni Worldwide</span></div>
+      <div class="stat"><span class="stat-num">95%</span><span class="stat-label">Placement Rate</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="about fade-in">
+  <div class="about-grid">
+    <div class="about-image-wrap">
+      <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80" alt="ICTHM Campus"/>
+      <div class="about-badge-float">
+        <span class="num">A+</span>
+        <span class="lbl">Accredited</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label" style="text-align:left;">Who We Are</p>
+      <h2>Excellence in Tourism & Hospitality Education</h2>
+      <p>ICTHM is Islamabad's leading institution for hospitality and tourism education. We combine academic rigor with real-world training to prepare students for careers across the global hospitality industry.</p>
+      <p>Our state-of-the-art facilities, expert faculty, and strong industry partnerships ensure that every graduate is employment-ready from day one.</p>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon">🎓</div>
+          <div>
+            <h4>Industry-Focused Curriculum</h4>
+            <p>Programs designed with leading hotel chains and tourism boards.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">👨‍🏫</div>
+          <div>
+            <h4>Experienced Faculty</h4>
+            <p>Instructors with decades of real-world hospitality experience.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🌍</div>
+          <div>
+            <h4>Global Internship Opportunities</h4>
+            <p>Partnerships with 5-star hotels and international tourism companies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs fade-in">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-title">Our Courses</h2>
+  <div class="section-line"></div>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="program-card-img">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Hotel Management"/>
+        <div class="program-icon">🏨</div>
+      </div>
+      <div class="program-card-body">
+        <h3>Hotel Management</h3>
+        <p>Master the art of running world-class hotels — from front office operations to revenue management and guest experience.</p>
+        <span class="program-tag">2 / 4 Year Program</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <div class="program-card-img">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Tourism Management"/>
+        <div class="program-icon">✈️</div>
+      </div>
+      <div class="program-card-body">
+        <h3>Tourism Management</h3>
+        <p>Explore the dynamic world of travel, tour operations, destination marketing, and sustainable tourism development.</p>
+        <span class="program-tag">2 / 4 Year Program</span>
+      </div>
+    </div>
+    <div class="program-card">
+      <div class="program-card-img">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80" alt="Culinary Arts"/>
+        <div class="program-icon">👨‍🍳</div>
+      </div>
+      <div class="program-card-body">
+        <h3>Culinary Arts</h3>
+        <p>Train under master chefs in fully equipped kitchens, learning both classic cuisine and contemporary culinary techniques.</p>
+        <span class="program-tag">1 / 2 Year Program</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities fade-in">
+  <p class="section-label">Our Infrastructure</p>
+  <h2 class="section-title">World-Class Facilities</h2>
+  <div class="section-line"></div>
+  <div class="facilities-grid">
+    <div class="facility-card">
+      <div class="facility-img-wrap">
+        <img class="facility-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Training Kitchen"/>
+        <span class="facility-img-label">Facility</span>
+      </div>
+      <div class="facility-body">
+        <h3>Training Kitchen</h3>
+        <p>Professional-grade kitchen equipped with modern cooking stations and industry equipment.</p>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-img-wrap">
+        <img class="facility-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80" alt="Mock Hotel Rooms"/>
+        <span class="facility-img-label">Facility</span>
+      </div>
+      <div class="facility-body">
+        <h3>Mock Hotel Rooms</h3>
+        <p>Fully furnished practice rooms replicating real 5-star hotel standards for hands-on training.</p>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-img-wrap">
+        <img class="facility-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&q=80" alt="Hotel front desk and reception counter" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1596436889106-b35b8736b0a6?w=500&q=80'"/>
+        <span class="facility-img-label">Facility</span>
+      </div>
+      <div class="facility-body">
+        <h3>Front Office Lab</h3>
+        <p>Simulated reception and concierge setup with property management software training.</p>
+      </div>
+    </div>
+    <div class="facility-card">
+      <div class="facility-img-wrap">
+        <img class="facility-img" src="https://images.unsplash.com/photo-1643199187247-b3b6009bf0bb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Computer Lab"/>
+        <span class="facility-img-label">Facility</span>
+      </div>
+      <div class="facility-body">
+        <h3>Computer Lab</h3>
+        <p>Fully networked lab with hospitality software, GDS systems, and e-tourism platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why fade-in">
+  <p class="section-label">Why ICTHM</p>
+  <h2 class="section-title">Reasons to Choose Us</h2>
+  <div class="section-line"></div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3>Industry Partnerships</h3>
+      <p>We work directly with leading hotel groups, airlines, and tourism boards across Pakistan and internationally.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3>Guaranteed Internships</h3>
+      <p>Every student is placed in a real hospitality environment as part of their academic journey.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3>Career Support</h3>
+      <p>Dedicated placement cell, CV workshops, and interview prep to get you job-ready before graduation.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <h3>Flexible Schedules</h3>
+      <p>Morning and evening batches available for both full-time students and working professionals.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <h3>Affordable Fees</h3>
+      <p>Competitive tuition with scholarship programs and installment plans to ensure access for all.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">06</div>
+      <h3>Accredited Courses</h3>
+      <p>Our programs are recognized by HEC and affiliated with reputable national and international bodies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials fade-in">
+  <p class="section-label">Student Stories</p>
+  <h2 class="section-title">What Our Alumni Say</h2>
+  <div class="section-line"></div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p>ICTHM gave me the skills and confidence to land a position at a 5-star hotel in Dubai right after graduation. The hands-on training was exceptional.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div class="author-info">
+          <h4>Ahmed Khan</h4>
+          <span>Hotel Management Graduate, 2022</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p>The tourism program opened doors I never thought possible. I now run my own tour company and credit ICTHM's curriculum for my business knowledge.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SR</div>
+        <div class="author-info">
+          <h4>Sara Raza</h4>
+          <span>Tourism Management Graduate, 2021</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p>The culinary program was intense and incredible. I trained under real chefs and now work at one of Islamabad's top restaurants. Truly life-changing.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">UB</div>
+        <div class="author-info">
+          <h4>Usman Baig</h4>
+          <span>Culinary Arts Graduate, 2023</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner fade-in">
+  <h2>Ready to Start Your Hospitality Career?</h2>
+  <p>Admissions are open for the Spring 2025 intake. Limited seats available.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-dark">Apply for Admission</a>
+    <a href="#" class="btn-white-outline">Download Prospectus</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact fade-in">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <p>Have questions about our programs or admissions? Our team is here to help you take the next step toward your future.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <span>0322 6665550</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <span>info@ecthm.edu.pk</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span>Balach, Near PSO Pump Lower Chitral., Mastuj, Chitral., -, -, Pakistan</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <span>Mon – Sat: 9:00 AM – 5:00 PM</span>
+        </div>
+      </div>
+      <div class="contact-social">
+        <span class="contact-social-label">Find us on social media</span>
+        <div class="contact-social-icons">
+          <a href="#" aria-label="ICTHM on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="ICTHM on Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" aria-label="Message ICTHM on WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map">
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center=Islamabad,Pakistan&zoom=13&size=600x280&maptype=roadmap&markers=color:red%7CIslamabad,Pakistan&key=AIzaSyD-placeholder" 
+           alt="Campus Map"
+           onerror="this.onerror=null;this.parentElement.innerHTML='<iframe width=\'100%\' height=\'280\' style=\'border:0;border-radius:16px;\' loading=\'lazy\' allowfullscreen src=\'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212646.44665763823!2d72.82469225!3d33.6844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbfd07891722f%3A0x6789f3c1fcf4dbcc!2sIslamabad%2C+Pakistan!5e0!3m2!1sen!2s!4v1234567890\'></iframe>'"
+           style="display:none"/>
+      <iframe width="100%" height="280" style="border:0;border-radius:16px;" loading="lazy" allowfullscreen
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212646.44665763823!2d72.82469225!3d33.6844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbfd07891722f%3A0x6789f3c1fcf4dbcc!2sIslamabad%2C+Pakistan!5e0!3m2!1sen!2s!4v1234567890">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>© 2025 ICTHM – Islamabad College of Tourism & Hotel Management. All rights reserved.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
